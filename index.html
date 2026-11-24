@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MEDITECH Expanse Physician Onboarding | Stevenson Memorial Hospital</title>
+<meta name="description" content="Physician onboarding for MEDITECH Expanse 2.1 and 2.2 at Stevenson Memorial Hospital: Web Acute, Web ED, Dragon Medical One videos and tip sheets.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,600;6..12,700;6..12,800;6..12,900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!--
+  HOW TO MAINTAIN THIS PAGE
+  - Set the 2.2 go-live date in UPGRADE_DATE near the bottom of this file (e.g. "March 2, 2027"). Leave "" to show "date to be announced".
+  - Videos live in the VIDEOS array, tip sheets in the TIPS array. Each video: [YouTube ID, title, version "2.1" | "2.2" | "gen", modules, group, duration].
+  - When SMH goes live on 2.2, change CURRENT to "2.2" and the labels update across the page.
+  - Content: Care4 Partnership (care-4.ca), shared with permission.
+  - LOGO: put the official SMH logo file next to this page, named stevenson-logo.svg. Until it is there, a text wordmark shows instead.
+-->
+<style>
+/*
+VOICE   Stevenson Memorial's own voice: warm, community-hospital, clear and direct
+IDEA    a hospital orientation binder: tabbed sections, a numbered "first week" checklist, colour-coded version tabs
+PICTURE the onboarding path itself (four steps with live progress) sits in the hero beside the welcome
+COLOUR  SMH brand: pale header #f5fbfd, slate #3c5e6b nav/buttons, SMH blue #006893 bands/footer, sky #00a5e3 accent; 2.1 = SMH blue, 2.2 = SMH pink #a23193
+TYPE    Avenir (SMH headings) with Nunito Sans fallback, Open Sans body; LAYOUT sticky header with version switch, wide card grids that stack to one column on phones
+*/
+:root{color-scheme:light dark;
+--bg:light-dark(#ffffff,#0f1a1f);--soft:light-dark(#f5fbfd,#15252c);--line:light-dark(#d8e6ec,#26393f);
+--ink:light-dark(#263338,#e6eef1);--mute:light-dark(#53565a,#a3b3b9);
+--slate:light-dark(#3c5e6b,#9cc3d1);--blue:#006893;--sky:#00a5e3;
+--brand:#3c5e6b;--brand-2:#006893;--on-brand:#ffffff;
+--head:"Avenir Next","Avenir LT Std",Avenir,"Nunito Sans",system-ui,sans-serif;
+--v21:light-dark(#006893,#5cc4ec);--v21bg:light-dark(#e3f3fa,#0f2c38);
+--v22:light-dark(#a23193,#e48bd8);--v22bg:light-dark(#f8e9f6,#36173a);
+--vg:light-dark(#53565a,#b5c1c6);--vgbg:light-dark(#eef1f2,#1f2c31);
+--link:light-dark(#006893,#5cc4ec);--radius:12px;--shadow:0 1px 2px rgba(10,30,40,.06),0 4px 16px rgba(10,30,40,.06)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:120px;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Open Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-x:clip}
+a{color:var(--link)}
+:focus-visible{outline:3px solid var(--sky);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 max(4vw,16px)}
+.skip{position:absolute;left:-999px}.skip:focus{left:12px;top:12px;z-index:99;background:#fff;color:#000;padding:8px 12px}
+
+/* header */
+header.top{position:sticky;top:0;z-index:20;background:light-dark(rgba(245,251,253,.96),rgba(15,26,31,.96));backdrop-filter:blur(6px);color:var(--ink);box-shadow:0 1px 0 var(--line),0 4px 14px rgba(0,60,90,.06)}
+.bar{display:flex;align-items:center;gap:16px;padding-block:10px;flex-wrap:wrap}
+.mark{display:flex;align-items:center;gap:14px;color:var(--slate);text-decoration:none;margin-right:auto}
+.logo{height:52px;width:auto;display:block}
+.wm{display:block;line-height:1}.wm .w1{display:block;font-family:var(--head);font-weight:800;font-size:22px;letter-spacing:.06em;color:var(--slate)}.wm .w2{display:block;font-family:var(--head);font-weight:600;font-size:10.5px;letter-spacing:.32em;color:var(--sky);margin-top:3px}
+.divider{width:1px;align-self:stretch;background:var(--line);margin:4px 2px}
+.mark svg{flex:none}
+.mark b{display:block;font-size:16px;line-height:1.15;font-weight:800;color:var(--slate)}
+.mark .sub{display:block;font-size:13px;color:var(--mute)}
+.vswitch{display:flex;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px}
+.vswitch button{appearance:none;border:0;background:transparent;color:var(--slate);font-weight:700;font-size:14px;line-height:1;padding:0 14px;min-height:38px;border-radius:8px;cursor:pointer;white-space:nowrap}
+.vswitch button[aria-pressed=true]{background:#3c5e6b;color:#fff}
+nav.sec{background:transparent;border-top:1px solid var(--line)}
+nav.sec ul{list-style:none;margin:0;padding:0;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+nav.sec ul::-webkit-scrollbar{display:none}
+nav.sec li{flex:none}
+nav.sec a{display:block;color:var(--slate);text-decoration:none;font-size:14.5px;font-weight:700;padding:11px 12px;white-space:nowrap;border-bottom:3px solid transparent}
+nav.sec a:hover,nav.sec a.on{color:var(--blue);border-color:var(--sky)}
+
+/* status */
+.status{background:#006893;color:#fff;font-size:14.5px}
+.status .badge{background:#fff}.status .b21{color:#006893}.status .b22{color:#a23193}
+.status .wrap{display:flex;gap:10px 22px;flex-wrap:wrap;align-items:center;padding-top:10px;padding-bottom:10px}
+.status strong{font-weight:700}
+
+/* badges */
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap;line-height:1.3}
+.badge::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.b21{color:var(--v21);background:var(--v21bg)}.b22{color:var(--v22);background:var(--v22bg)}.bgen{color:var(--vg);background:var(--vgbg)}
+.mod{font-size:12.5px;font-weight:600;color:var(--mute);white-space:nowrap}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding:clamp(30px,5vw,60px) 0 clamp(26px,4vw,48px);background:var(--soft)}
+.hero::before{content:"";position:absolute;right:-12%;top:-40%;width:70%;aspect-ratio:1;border-radius:50%;border:38px solid color-mix(in srgb,var(--sky) 10%,transparent);pointer-events:none}
+.hero::after{content:"";position:absolute;right:-4%;top:-28%;width:52%;aspect-ratio:1;border-radius:50%;border:18px solid color-mix(in srgb,var(--blue) 8%,transparent);pointer-events:none}
+.hero .wrap{position:relative;z-index:1}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(24px,4vw,56px);align-items:start}
+h1,h2,h3,h4,.mark b,.btn,.chip,.vswitch button,nav.sec a{font-family:var(--head)}
+h1{font-size:clamp(30px,4.2vw,46px);line-height:1.08;margin:0 0 16px;text-wrap:balance;font-weight:800;color:var(--slate)}
+.kicker{font-family:var(--head);font-weight:900;text-transform:uppercase;letter-spacing:.04em;font-size:15px;color:var(--blue);margin:0 0 10px}
+.lede{font-size:17px;color:var(--mute);max-width:56ch;margin:0 0 20px}
+.legend{display:grid;gap:10px;margin:18px 0 0;padding:16px;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg)}
+.legend div{display:flex;gap:10px;align-items:baseline;font-size:14.5px}
+.legend .badge{flex:none;min-width:104px}
+.path{background:var(--bg);border:1px solid var(--line);border-top:5px solid var(--blue);border-radius:12px;box-shadow:var(--shadow);overflow:hidden}
+.path header{padding:18px 20px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
+.path h2{font-size:19px;margin:0;color:var(--slate);font-weight:800}
+.roles{display:flex;gap:6px;flex-wrap:wrap}
+.chip{appearance:none;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:600 13.5px/1 inherit;min-height:36px;padding:0 13px;border-radius:999px;cursor:pointer}
+.chip{border-radius:8px}.chip[aria-pressed=true]{background:#3c5e6b;border-color:#3c5e6b;color:#fff}
+.steps{list-style:none;margin:0;padding:6px 0}
+.step{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:14px;align-items:center;padding:12px 20px}
+.step[hidden]{display:none}
+.num{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-family:var(--head);background:var(--soft);color:var(--blue);border:2px solid color-mix(in srgb,var(--sky) 40%,var(--line))}
+.step.done .num{background:var(--blue);color:#fff;border-color:var(--blue)}
+.step b{display:block;font-size:15.5px}
+.step small{display:block;color:var(--mute);font-size:13.5px;margin-bottom:6px}
+.meter{height:6px;background:var(--soft);border-radius:9px;overflow:hidden}.meter i{display:block;height:100%;background:linear-gradient(90deg,#006893,#00a5e3);border-radius:9px;transition:width .4s}
+.go{font-weight:700;font-size:14px;text-decoration:none;white-space:nowrap;padding:10px 4px}
+.path footer{padding:12px 20px 16px;font-size:13.5px;color:var(--mute);border-top:1px solid var(--line)}
+
+/* sections */
+section.band{padding:clamp(32px,5vw,60px) 0;border-top:1px solid var(--line)}
+section.band:nth-of-type(even){background:var(--soft)}
+section.band{border-top:0}
+.shead{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:8px}
+h2.t{font-size:clamp(26px,3vw,34px);line-height:1.1;margin:0;text-wrap:balance;font-weight:800;color:var(--slate)}
+.sdesc{color:var(--mute);max-width:70ch;margin:8px 0 24px}
+h3.g{font-size:18px;font-weight:800;color:var(--slate);margin:30px 0 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+h3.g .count{font-size:13px;color:var(--mute);font-weight:600}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;border:1.5px solid var(--slate);color:var(--slate);background:transparent;cursor:pointer;font-family:inherit}
+.btn.solid{background:#3c5e6b;border-color:#3c5e6b;color:#fff}.btn:hover{border-color:var(--blue)}.btn.solid:hover{background:#006893;border-color:#006893}
+
+/* video grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:18px}
+.vcard{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow)}
+.vcard[hidden],.tip[hidden],.vgroup[hidden]{display:none}
+.thumb{position:relative;display:block;width:100%;aspect-ratio:16/9;border:0;padding:0;background:#00506f;cursor:pointer;overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.thumb:hover img{transform:scale(1.03)}
+.play{position:absolute;inset:0;margin:auto;width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,.94);display:grid;place-items:center;box-shadow:0 4px 18px rgba(0,0,0,.3)}
+.play::after{content:"";border-left:18px solid #006893;border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:5px}
+.dur{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.78);color:#fff;font-size:12.5px;font-weight:600;padding:2px 7px;border-radius:5px}
+.vline{position:absolute;left:0;top:0;height:5px;width:100%}
+.vline.v21{background:var(--v21)}.vline.v22{background:var(--v22)}.vline.vgen{background:var(--vg)}
+.vbody{padding:14px 16px 14px;display:flex;flex-direction:column;gap:8px;flex:1}
+.tags{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.vbody h4{margin:0;font-size:15.5px;line-height:1.35;font-weight:600}
+.seen{margin-top:auto;display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--mute);cursor:pointer;min-height:32px;user-select:none}
+.seen input{width:18px;height:18px;accent-color:#006893}
+.vcard.watched{border-color:color-mix(in srgb,#006893 45%,var(--line))}
+.vcard.watched .seen{color:var(--v21);font-weight:600}
+
+/* tips */
+.tools{display:grid;grid-template-columns:minmax(0,2fr) repeat(2,minmax(0,1fr));gap:12px;margin-bottom:12px}
+.tools label{display:block;font-size:13px;font-weight:600;color:var(--mute);margin-bottom:4px}
+input[type=search],select{width:100%;min-height:46px;font:16px inherit;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:0 12px}
+.tcount{font-size:14px;color:var(--mute);margin:6px 0 12px}
+.tips{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,360px),1fr));gap:10px}
+.tip{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:12px 14px;background:var(--bg);border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink);min-height:64px}
+.tip:hover{border-color:var(--sky)}
+.tip .tt{font-weight:600;font-size:15px;line-height:1.35}
+.tip .tm{display:flex;gap:8px;align-items:center;flex-wrap:wrap;grid-column:1}
+.tip .ext{grid-row:1/3;grid-column:2;color:var(--link);font-weight:700;font-size:13px;white-space:nowrap}
+.empty{padding:24px;text-align:center;color:var(--mute);border:1px dashed var(--line);border-radius:10px}
+
+/* 2.2 */
+.whatsnew{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:28px;align-items:start}
+.enh{background:var(--bg);border:1px solid var(--line);border-top:5px solid var(--v22);border-radius:var(--radius);padding:20px 22px}
+.enh h3{margin:0 0 10px;font-size:18px}
+.enh ul{margin:0;padding-left:20px;columns:2 220px;column-gap:24px}
+.enh li{margin:0 0 6px;break-inside:avoid;font-size:15px}
+
+/* modal */
+dialog{border:0;padding:0;background:transparent;width:min(1100px,94vw);max-width:none}
+dialog::backdrop{background:rgba(5,15,20,.82)}
+.mbox{background:#000;border-radius:12px;overflow:hidden}
+.mhead{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:10px 12px 10px 16px;background:#3c5e6b;color:#fff}
+.mhead h3{margin:0;font-size:15px;font-weight:600}
+.mhead a{color:#cdeefb;font-size:13.5px;white-space:nowrap}
+.x{appearance:none;border:0;background:rgba(255,255,255,.12);color:#fff;width:44px;height:44px;border-radius:10px;font-size:22px;cursor:pointer;flex:none}
+.frame{aspect-ratio:16/9;background:#000}.frame iframe{width:100%;height:100%;border:0;display:block}
+
+footer.site{background:#006893;color:#e2f3fa;padding:36px 0;font-size:14px}
+footer.site a{color:#fff}
+footer.site .wrap{display:grid;gap:10px}
+
+@media (max-width:900px){.hero .wrap,.whatsnew{grid-template-columns:minmax(0,1fr)}.tools{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.tools .q{grid-column:1/-1}}
+@media (max-width:600px){.mark .sub{display:none}.mark b{font-size:14px}.logo{height:40px}.wm .w1{font-size:18px}.wm .w2{font-size:8.5px}.bar{gap:10px}.vswitch{width:100%}.vswitch button{flex:1;padding:0 6px;font-size:13px}
+.step{grid-template-columns:36px minmax(0,1fr);padding:12px 16px}.num{width:34px;height:34px}.go{grid-column:2;padding:2px 0 0}
+.legend .badge{min-width:0}.tools{grid-template-columns:minmax(0,1fr)}html{scroll-padding-top:200px}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="wrap bar">
+    <a class="mark" href="#start" aria-label="Stevenson Memorial Hospital physician onboarding home">
+      <img class="logo" src="stevenson-logo.svg" alt="Stevenson Memorial Hospital" onerror="this.remove();document.getElementById('wm').hidden=false">
+      <span class="wm" id="wm" hidden><span class="w1">STEVENSON</span><span class="w2">MEMORIAL HOSPITAL</span></span>
+      <span class="divider" aria-hidden="true"></span>
+      <span class="mt"><b>Physician onboarding</b><span class="sub">MEDITECH Expanse &amp; Dragon Medical One</span></span>
+    </a>
+    <div class="vswitch" role="group" aria-label="Show content for MEDITECH version">
+      <button data-ver="all" aria-pressed="true">All versions</button>
+      <button data-ver="2.1" aria-pressed="false">2.1 · current</button>
+      <button data-ver="2.2" aria-pressed="false">2.2 · upcoming</button>
+    </div>
+  </div>
+  <nav class="sec" aria-label="Sections"><div class="wrap"><ul>
+    <li><a href="#start">Start here</a></li>
+    <li><a href="#acute">Web Acute</a></li>
+    <li><a href="#ed">Web ED</a></li>
+    <li><a href="#dragon">Dragon Medical One</a></li>
+    <li><a href="#general">General education</a></li>
+    <li><a href="#whats-new">What's new in 2.2</a></li>
+    <li><a href="#tipsheets">Tip sheet library</a></li>
+  </ul></div></nav>
+</header>
+
+<div class="status" role="note"><div class="wrap">
+  <span><span class="badge b21">Expanse 2.1</span> &nbsp;<strong>SMH is live on 2.1 today.</strong> Learn these workflows first.</span>
+  <span><span class="badge b22">Expanse 2.2</span> &nbsp;<strong>Upgrade:</strong> <span id="upg">date to be announced</span>. Preview the changes before go-live.</span>
+</div></div>
+
+<main id="main">
+<section class="hero" id="start">
+  <div class="wrap">
+    <div>
+      <p class="kicker">Medical staff onboarding</p>
+      <h1>Welcome to MEDITECH Expanse at Stevenson Memorial</h1>
+      <p class="lede">Everything a new physician needs to get comfortable in our electronic health record: short workflow videos, printable tip sheets and Dragon dictation setup. Follow the four-step onboarding path, or jump straight to the area you work in.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn solid" href="#acute">Start with Web Acute</a>
+        <a class="btn" href="#tipsheets">Find a tip sheet</a>
+      </div>
+      <div class="legend" aria-label="Version labels">
+        <div><span class="badge b21">Expanse 2.1</span><span>Our current version. Everything you need for your shifts now.</span></div>
+        <div><span class="badge b22">Expanse 2.2</span><span>The upcoming upgrade. New screens and features to preview before go-live.</span></div>
+        <div><span class="badge bgen">General</span><span>Care4 hasn't tied it to a release. It applies to everyday use.</span></div>
+      </div>
+    </div>
+    <div class="path" aria-labelledby="pathTitle">
+      <header>
+        <h2 id="pathTitle">Your onboarding path</h2>
+        <div class="roles" role="group" aria-label="I work in">
+          <button class="chip" data-role="both" aria-pressed="true">Inpatient + ED</button>
+          <button class="chip" data-role="acute" aria-pressed="false">Inpatient</button>
+          <button class="chip" data-role="ed" aria-pressed="false">Emergency</button>
+        </div>
+      </header>
+      <ol class="steps" id="steps"></ol>
+      <footer>Tick “Watched” on each video to track progress. Progress is saved in this browser only.</footer>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="acute">
+  <div class="wrap">
+    <div class="shead"><h2 class="t">Web Acute: inpatient care</h2><button class="btn" data-tipjump="a">Web Acute tip sheets →</button></div>
+    <p class="sdesc">Admitting, rounding, ordering, coverage and discharge on the wards. Start with the core workflows. They follow a patient from admission to discharge.</p>
+    <div id="acute-videos"></div>
+  </div>
+</section>
+
+<section class="band" id="ed">
+  <div class="wrap">
+    <div class="shead"><h2 class="t">Web ED: emergency department</h2><button class="btn" data-tipjump="e">Web ED tip sheets →</button></div>
+    <p class="sdesc">Seeing and discharging ED patients, admitting from the ED, and signing patients over at shift change.</p>
+    <div id="ed-videos"></div>
+  </div>
+</section>
+
+<section class="band" id="dragon">
+  <div class="wrap">
+    <div class="shead"><h2 class="t">Dragon Medical One</h2></div>
+    <p class="sdesc">Speech recognition for your notes. Set up your microphone and vocabulary before your first shift so dictation is ready when you need it.</p>
+    <div id="dragon-videos"></div>
+    <h3 class="g">Dragon tip sheets</h3>
+    <div class="tips" id="dragon-tips"></div>
+  </div>
+</section>
+
+<section class="band" id="general">
+  <div class="wrap">
+    <div class="shead"><h2 class="t">General education</h2></div>
+    <p class="sdesc">Tools that apply to every physician regardless of department, including bed management and patient-safety reporting.</p>
+    <div id="general-videos"></div>
+  </div>
+</section>
+
+<section class="band" id="whats-new">
+  <div class="wrap">
+    <div class="shead"><h2 class="t">What's new in Expanse 2.2</h2><a class="btn" href="https://www.care-4.ca/viewdocument/?aid=eb10f20a-6358-f111-a825-000d3ae84ae1" target="_blank" rel="noopener">Full Care4 2.2 communication ↗</a></div>
+    <p class="sdesc">SMH is moving from 2.1 to 2.2. Most workflows stay the same; these are the enhancements physicians will notice. Everything in this section is marked <span class="badge b22">Expanse 2.2</span>.</p>
+    <div class="whatsnew">
+      <div class="enh">
+        <h3>2.2 enhancements at a glance</h3>
+        <ul>
+          <li>Web Acute patient lists</li><li>Web Acute Provider Teams</li><li>Sign up as an Other Provider</li>
+          <li>Activity log: new filter functionality</li><li>Web ED patient lists</li><li>Web ED Call Back routine</li>
+          <li>Document routine: “Copies To”</li><li>Document routine access from PCS</li><li>Orders management enhancements</li>
+          <li>Flowsheets</li><li>Widgets: restore template, collapse all</li><li>Formatted data: active and on-hold meds</li>
+          <li>New IV medication convenience set</li><li>ED ONCE and PRN set</li><li>Outpatient convenience prescription sets</li>
+          <li>EMR preference settings</li><li>Reports moving to the Diagnostics tab</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="g" style="margin-top:0">2.2 tip sheets <span class="count" id="c22"></span></h3>
+        <div class="tips" id="tips22"></div>
+      </div>
+    </div>
+    <h3 class="g">2.2 feature videos <span class="count" id="cv22"></span></h3>
+    <div class="grid" id="videos22"></div>
+  </div>
+</section>
+
+<section class="band" id="tipsheets">
+  <div class="wrap">
+    <div class="shead"><h2 class="t">Tip sheet library</h2><a class="btn" href="https://www.care-4.ca/providers/" target="_blank" rel="noopener">All Care4 provider resources ↗</a></div>
+    <p class="sdesc">Step-by-step physician guides from Care4. They open on care-4.ca and can be printed. The version switch at the top filters this list too.</p>
+    <div class="tools">
+      <div class="q"><label for="q">Search</label><input id="q" type="search" placeholder="e.g. discharge, quick text, coverage, addendum" autocomplete="off"></div>
+      <div><label for="fm">Module</label><select id="fm"><option value="">All modules</option><option value="a">Web Acute</option><option value="e">Web ED</option><option value="d">Dragon Medical One</option></select></div>
+      <div><label for="fc">Topic</label><select id="fc"><option value="">All topics</option></select></div>
+    </div>
+    <div class="tcount" id="tcount" aria-live="polite"></div>
+    <div class="tips" id="tiplist"></div>
+  </div>
+</section>
+</main>
+
+<footer class="site"><div class="wrap">
+  <div><strong>Stevenson Memorial Hospital: Physician MEDITECH Expanse onboarding</strong>, maintained by the Office of the Chief of Staff. <a href="https://www.stevensonhospital.ca/" target="_blank" rel="noopener">stevensonhospital.ca</a></div>
+  <div>Educational videos and tip sheets are produced by the <a href="https://www.care-4.ca/" target="_blank" rel="noopener">Care4 Partnership</a> and shared with permission. Some tip sheets were written for partner sites, so check local workflows with your department if a screen looks different.</div>
+</div></footer>
+
+<dialog id="player" aria-labelledby="ptitle">
+  <div class="mbox">
+    <div class="mhead"><h3 id="ptitle"></h3><span style="display:flex;gap:10px;align-items:center"><a id="plink" href="#" target="_blank" rel="noopener">Open on YouTube ↗</a><button class="x" id="pclose" aria-label="Close video">×</button></span></div>
+    <div class="frame" id="pframe"></div>
+  </div>
+</dialog>
+
+<script>
+{
+const UPGRADE_DATE = "";          // e.g. "March 2, 2027"
+const CURRENT = "2.1";
+const CARE4 = "https://www.care-4.ca/viewdocument/?aid=";
+
+/* [id, title, version, modules (a=Web Acute, e=Web ED, d=Dragon, g=General), group (core|feat|how), duration] */
+const VIDEOS = [
+ ["0rVzO4UNerI","Ongoing care for an admitted patient","2.1","a","core","8:56"],
+ ["2rKnIdpOr_4","Discharging an admitted patient","2.1","a","core","25:26"],
+ ["yT_BWUUHbXs","Editing coverage and sign-up routine","2.1","a","core","6:10"],
+ ["THTW0gYN69A","ED to OR to home: patient scenario","2.1","a","core","27:45"],
+ ["RyiVTFzuotU","Day surgery: rotator cuff repair","2.1","a","core","37:08"],
+ ["3K1Cw3T9HNI","Nurse to enter orders","2.1","a","core","4:07"],
+ ["guM8rdU0rdQ","Suggested orders","2.1","a","core","4:41"],
+ ["w8_N0Ce0M4Q","How to place an order on a pre-inpatient account","2.1","a","core","2:08"],
+ ["USRHpwi5Hg0","ED outpatient seen and discharged home","2.1","e","core","12:02"],
+ ["2oZR-E3J_GQ","Admitting a patient from the ED","2.1","e","core","23:26"],
+ ["z5Dy1Q4lnY0","Signing out a patient and accepting a sign-out routine","2.1","e","core","4:21"],
+ ["HQaVJH3kBOs","Web Acute status board enhancement","2.2","a","feat",""],
+ ["zL4DNYMqiME","Status board: active routine visual indicator","2.2","a","feat",""],
+ ["RbBSFpbSQ50","Status board: Provider Teams","2.2","a","feat",""],
+ ["viIx0yrmLBE","Status board: how to sign up as a provider","2.2","a","feat",""],
+ ["40blAg0ZtRc","Status board: sign up as a physician assistant or resident","2.2","a","feat",""],
+ ["eiOXEni0U28","Status board: viewing surgical cases (anesthesiologists)","2.2","a","feat",""],
+ ["7AUXtdC0o2o","Launching the EMR chart (pathology)","2.2","a","feat",""],
+ ["gz16LDepRfg","Web ED status board","2.2","e","feat",""],
+ ["x3hJBt67tWs","Quick Text navigation","2.2","ae","feat",""],
+ ["Y2rUXS6mnak","Managing document contributors","2.2","ae","feat",""],
+ ["43_CTMsnr7c","MAR: viewing PRN administrations","2.2","ae","feat",""],
+ ["rO7ITEc9qQ0","Widget preferences","2.2","ae","feat",""],
+ ["JFHYFvXyzsU","Discharge medication reconciliation, finalization and prescriptions","gen","a","how",""],
+ ["ZXmma3NwiFc","How to view intake and output documentation","gen","ae","how",""],
+ ["VO0ODLXAEl4","How to launch Chart Viewer","gen","ae","how",""],
+ ["ixlRbI0xQ9s","Dragon Medical One: manage vocabulary","gen","d","how",""],
+ ["UisxvreHzK0","IPeople: navigation and key features","gen","g","how",""],
+ ["fU5O4-QBR5E","Expanse IMS: entering safety incidents","gen","g","how",""]
+];
+
+/* Tip sheets from Care4: [module, Care4 document id, Care4 title] */
+const TIPS = [
+["a","8ea440ac-776a-f111-ab0c-000d3ae97381","Chart.Viewing of Historical Tests from Diagnostics Tab"],
+["a","0baa7b0f-4063-f011-bec2-0022483caef2","Documentation.Change Your User's PIN.Acute.All"],
+["a","8fdda841-4063-f011-bec2-0022483caef2","Orders.How to Create Typicals.Acute.All"],
+["a","2ebf8669-4463-f011-bec2-0022483caef2","Orders.Entering Discharge Instructions within the Discharge Plan.Acute.All"],
+["a","33ce3034-4563-f011-bec2-0022483caef2","Orders.Palliative PCA and CAD.Acute.All"],
+["a","1abe14f1-4563-f011-bec2-0022483caef2","Orders.Renewing Telemetry Orders.Acute.All"],
+["a","a68cf511-4663-f011-bec2-0022483caef2","Chart.Viewing Diagnostic Images within Expanse.Acute.All"],
+["a","0bdf8e3e-4763-f011-bec2-0022483caef2","Orders.Outpatient Cardio Respiratory Ordering Workflow.Acute.All"],
+["a","3e05b5af-df63-f011-bec2-0022483caef2","Widgets.Adding a Questionnaires Widget.Acute.All"],
+["a","86c3d83c-1763-f011-bec2-002248af617d","Documentation.Adding a Signer to a Report.Acute.All"],
+["a","717f41c6-1863-f011-bec2-002248af617d","Documentation.Adding Formatted Data to a Document.Acute.All"],
+["a","0ab4014d-3f63-f011-bec2-002248af617d","Documentation.Finding and Sorting Document Types.Acute.All"],
+["a","aab989c6-3f63-f011-bec2-002248af617d","Documentation.Adding an Addendum to a Signed Document.Acute.All"],
+["a","423cc845-4463-f011-bec2-002248af617d","Orders.Hold Queue Orders - How to Enter and Manage.Acute.All"],
+["a","aa372cc9-4463-f011-bec2-002248af617d","Widgets.How to Modify and Add to the Summary Tab and Reference.Acute.All"],
+["a","8a7c1efa-4463-f011-bec2-002248af617d","Orders.Ordering Home Oxygen Assessment.Acute.All"],
+["a","b63e3249-4563-f011-bec2-002248af617d","Orders.Post Operative PCA.Acute.All"],
+["a","65e5d0b0-4563-f011-bec2-002248af617d","Orders.How to Remove Saved Orders from your Favourites List.Acute.All"],
+["a","8b1bb342-4663-f011-bec2-002248af617d","Workload.Manage Deficiencies.Acute.All"],
+["a","62492e89-4663-f011-bec2-002248af617d","Chart.Multiple Accounts - How to Select the Correct Account.Acute.All"],
+["a","bbdaa695-4663-f011-bec2-002248af617d","Flowsheets.My Flowsheet Customization.Acute.All"],
+["a","05b4f2c7-4663-f011-bec2-002248af617d","Documentation.My vs All Documents.Acute.All"],
+["a","b1c456bb-4763-f011-bec2-002248af617d","Chart.Printing Physician Rounds List.Acute.All"],
+["a","47ac0ace-4763-f011-bec2-002248af617d","Orders.Searching for Orders Using an Alias.Acute.All"],
+["a","7482d30b-c9ec-f011-8406-002248b0b66e","Orders.MRI Outpatient Order.Acute.All"],
+["a","6645b60d-eb01-f111-8407-002248b0b66e","Documentation.How to Create Quick Text.Acute.All"],
+["a","e8f88b68-ee05-f111-8407-002248b0bb34","Documentation.New Formatted Data Sets PFSH-HMED-ALL MD.Acute.All"],
+["a","5d0fe5c0-e6cb-f111-a05c-3833c5f8e083","Chart.How to launch Chart Viewer.Acute.All"],
+["a","ffaf25b2-e8cb-f111-a05c-3833c5f8e083","Preferences.How to set Patient Loading Preferences for Web Acute.Acute.All"],
+["a","ee328132-88cd-f111-a05c-3833c5f8e083","Chart.Selected Visit Registration Banner.Acute.All"],
+["a","ccf44a81-ecd6-f111-84ea-6045bd5bfb95","Orders.Location Filtering.Acute.All"],
+["a","4e66bba9-8f5e-f011-877b-6045bd602bed","Transfers.Manage Transfer.Acute.All"],
+["a","42284b0a-9169-f111-ab0c-70a8a50a05c7","Orders.Edit Orders.Acute.All"],
+["a","d0041e6b-f0a9-f011-bbd3-7c1e52531b0d","Orders.Nurse Task Orders.Acute.All"],
+["a","b91cd7dd-f3a9-f011-bbd3-7c1e5254ae9b","Orders.Repatriation Order.Acute.All"],
+["a","9183953b-f4a9-f011-bbd3-7c1e5254ae9b","Orders.Line/Tube Placement Verified Order.Acute.All"],
+["a","303071d3-9c7f-f111-ab0e-7ced8d356da6","Status Boards.How to view Intake and Output.Acute.All"],
+["a","ec985f9f-4b76-f111-ab0e-7ced8d365132","Chart.Consults List.Acute.All"],
+["a","a301430a-4c76-f111-ab0e-7ced8d365132","Chart.Patient Lists Preferences.Acute.All"],
+["a","4fe22260-e9cb-f111-a05c-7ced8d64f352","Status Boards.How to Mass Update Provider Sign Up.Acute.All"],
+["a","53d18d6e-eacb-f111-a05c-7ced8d64f352","Status Boards.Viewing External Medical Documents from Traverse Exchange.Acute.All"],
+["a","25099dde-eacb-f111-a05c-7ced8d64f352","Widgets.How to Add and Manage My Widget and My Patient Widget.Acute.All"],
+["a","2862f776-6ab0-f111-aaac-7ced8d64f352","Discharge.Discharge Medication Reconciliation, Finalization and Prescriptions.Acute.All"],
+["a","3f695a63-72be-f011-bbd3-7ced8d65aa46","Orders.Unknown Blood Types.Acute.All"],
+["a","425516a8-b99c-f111-b8dc-7ced8d65c384","IPeople.Physician IPeople Guide.Acute.All"],
+["a","87b923fa-8a69-f111-ab0c-7ced8da58bca","Orders.Reordering Stopped Orders.Acute.All"],
+["a","6db06102-8d69-f111-ab0c-7ced8da58bca","Orders.Edit Multiple Orders.Acute.All"],
+["a","cdb4fa95-3f6b-f111-ab0c-7ced8da58bca","Status Boards.How to Sign Up for MRP Changeover.Acute.All"],
+["a","3b563ba4-436b-f111-ab0c-7ced8da58bca","Status Boards.How to Set Up and Edit Coverage.Acute.All"],
+["a","7fecaffd-b991-f111-8075-7ced8da688c1","Orders.How to Reject an Order from the Sign List.Acute.All"],
+["a","02cd66d4-514a-f111-bec6-002248b0b66e","Orders.Order Management Optimization.Acute.All.Expanse 2.2"],
+["a","177f954d-534a-f111-bec6-002248b0b66e","Status Boards.Patient List Enhancement - View Admissions or Discharges.Acute.All.Expanse 2.2"],
+["a","87844d9f-d84a-f111-bec6-002248b0b66e","Preferences.Status Activity Log - New Filter Functionality.Acute.All.Expanse 2.2"],
+["a","16f1eb97-c43c-f111-88b4-002248b0bb34","Documentation.How to Manage Document Contributors.Acute.All.Expanse 2.2"],
+["a","485a1eab-c43c-f111-88b4-002248b0bb34","Status Boards.How to Sign Up as a Physician Assistant or Resident.Acute.All.Expanse 2.2"],
+["a","1e8cd818-c53c-f111-88b4-002248b0bb34","Documentation.Quick Text Navigation.Acute.All.Expanse 2.2"],
+["a","6aec0b87-c53c-f111-88b4-002248b0bb34","Widgets.Widget Preferences.Acute.All.Expanse 2.2"],
+["a","cca0d691-f93f-f111-88b4-002248b0bb34","MAR.View PRN Administrations.Acute.All.Expanse 2.2"],
+["a","6840a9c5-3643-f111-bec7-002248b0bb34","Chart.How to Launch EMR Chart (Pathology).Acute.All.Expanse 2.2"],
+["a","9d8c09d7-4d4a-f111-bec7-002248b0bb34","Documentation.Formatted Data - On Hold Medications.Acute.All.Expanse 2.2"],
+["a","5fe4a621-524a-f111-bec7-002248b0bb34","Orders.Personalized Sets - Allow Suppress Orders.Acute.All.Expanse 2.2"],
+["a","1acb2532-eacb-f111-a05c-6045bd5bfb95","Status Boards.Provider Teams.Acute.All.Expanse 2.2"],
+["a","2747cae5-4f4a-f111-bec6-6045bd5dbf90","Documentation.Provider Documentation from PCS.Acute.All.Expanse 2.2"],
+["a","663f3f9c-514a-f111-bec6-6045bd5dbf90","Orders.New IV Medication Convenience Set: IV Bolus and IV Fluids.Acute.All.Expanse 2.2"],
+["a","ae590f4f-c53c-f111-88b3-70a8a50dc6bc","Status Boards.Web Acute Status Board Enhancement.Acute.All.Expanse 2.2"],
+["a","98a8a0ec-f05d-f111-a825-70a8a5acb59f","Documentation.Adding Contributors to a Non-Distributed Document.Acute.All.Expanse 2.2"],
+["a","67f75fbe-725c-f111-a826-7c1e525412d4","Orders.How to Edit Preselected Order Strings.All.Expanse 2.2"],
+["a","c9bdbb30-e9cb-f111-a05c-7ced8d64f352","Preferences.Web Acute EMR Preferences.Acute.All.Expanse 2.2"],
+["a","4ebec2a7-e9cb-f111-a05c-7ced8d64f352","Status Boards.Active Routine Visual Indicator.Acute.All.Expanse 2.2"],
+["a","801ff17b-e7cb-f111-a05a-7ced8d65c384","Flowsheets.Flowsheets Enhancement.Acute.All.Expanse 2.2"],
+["a","177f2ce7-c43c-f111-88b3-7ced8da4b75d","Status Boards.How to View Surgical Cases (Anesthesiologist).Acute.All.Expanse 2.2"],
+["a","e1e9f347-504a-f111-bec6-7ced8da4b75d","Orders.Favourites - New Option in Dropdown.Acute.All.Expanse 2.2"],
+["e","2581f8e8-3f63-f011-bec2-0022483caef2","Documentation.Adding an Addendum to a Signed Document.ED.All"],
+["e","9f0b6f2e-4063-f011-bec2-0022483caef2","Documentation.Change Your User's PIN.ED.All"],
+["e","b5cda1db-4463-f011-bec2-0022483caef2","Widgets.How to Modify and Add to the Summary Tab and Reference.ED.All"],
+["e","842ae3df-4763-f011-bec2-0022483caef2","Orders.Searching for Orders Using an Alias.ED.All"],
+["e","ba2d6350-1763-f011-bec2-002248af617d","Documentation.Adding a Signer to a Report.ED.All"],
+["e","be6051e5-1863-f011-bec2-002248af617d","Documentation.Adding Formatted Data to a Document.ED.All"],
+["e","17891565-3f63-f011-bec2-002248af617d","Documentation.Finding and Sorting Document Types.ED.All"],
+["e","89ced85d-4063-f011-bec2-002248af617d","Orders.How to Create Typicals.ED.All"],
+["e","68f683c9-4563-f011-bec2-002248af617d","Orders.How to Remove Saved Orders from your Favourites List.ED.All"],
+["e","d8884927-4663-f011-bec2-002248af617d","Chart.Viewing Diagnostic Images within Expanse.ED.All"],
+["e","8dae9655-4663-f011-bec2-002248af617d","Workload.Manage Deficiencies.ED.All"],
+["e","d96d22af-4663-f011-bec2-002248af617d","Flowsheets.My Flowsheet Customization.ED.All"],
+["e","16b4aa44-4763-f011-bec2-002248af617d","Orders.Outpatient Cardio Respiratory Ordering Workflow.ED.All"],
+["e","1e08e5a8-dc63-f011-bec2-002248af617d","Orders.New Order - ED Return Treatment.ED.All"],
+["e","160f0924-c9ec-f011-8406-002248b0b66e","Orders.MRI Outpatient Order.ED.All"],
+["e","f363fc80-ee05-f111-8407-002248b0bb34","Documentation.New Formatted Data Sets PFSH-HMED-ALL MD.ED.All"],
+["e","242c1af6-8f5e-f011-877a-002248b35783","Transfers.Manage Transfer.ED.All"],
+["e","58f5aada-6e92-f111-8076-3833c5f860fe","Orders.Chargeables for ED"],
+["e","8036e0da-e6cb-f111-a05a-3833c5f860fe","Chart.How to Launch Chart Viewer.ED.All"],
+["e","d6e3d9b7-9c7f-f111-ab0e-3833c5f860fe","Status Boards.How to View Intake and Output.ED.All"],
+["e","7f5c58db-b99c-f111-b8dc-3833c5f860fe","IPeople.Physician IPeople Guide.ED.All"],
+["e","4716a49a-ecd6-f111-84ea-6045bd5bfb95","Orders.Location Filtering.ED.All"],
+["e","dfcf970d-8b69-f111-ab0c-70a8a50a05c7","Orders.Reordering Stopped Orders.ED.All"],
+["e","a356f90c-8d69-f111-ab0c-70a8a50a05c7","Orders.Edit Multiple Orders.ED.All"],
+["e","dd89bb3f-9169-f111-ab0c-70a8a50a05c7","Orders.Edit Orders.ED.All"],
+["e","6639be83-f0a9-f011-bbd3-7c1e52531b0d","Orders.Nurse Task Orders.ED.All"],
+["e","cb6c9f54-f4a9-f011-bbd3-7c1e52531b0d","Orders.Line/Tube Placement Verified Order.ED.All"],
+["e","360bebef-f3a9-f011-bbd3-7c1e5254ae9b","Orders.Repatriation Order.ED.All"],
+["e","b77f4388-72be-f011-bbd3-7ced8d65aa46","Orders.Unknown Blood Types.ED.All"],
+["e","ee448cd3-776a-f111-ab0c-7ced8da58bca","Chart.Viewing of Historical Tests from Diagnostics Tab"],
+["e","b4779915-ba91-f111-8075-7ced8da688c1","Orders.How to Reject an Order from the Sign List.ED.All"],
+["e","88307f06-f15d-f111-a825-000d3ae84ae1","Documentation.Adding Contributors to a Non-Distributed Document.ED.All.Expanse 2.2"],
+["e","bee1eb6d-835f-f111-a825-000d3ae84ae1","Documentation.ED Triage Formatted Data - How to Add to Provider Documentation.ED.All.Expanse 2.2"],
+["e","70576d33-c53c-f111-88b4-002248b0b66e","Documentation.Quick Text Navigation.ED.All.Expanse 2.2"],
+["e","f20b5ba8-c53c-f111-88b4-002248b0b66e","Widgets.Widget Preferences.ED.All.Expanse 2.2"],
+["e","cf9f9973-143f-f111-88b4-002248b0b66e","Documentation.How to Manage Document Contributors.ED.All.Expanse 2.2"],
+["e","fe84840c-514a-f111-bec6-002248b0b66e","Orders.Outpatient Prescription Sets.ED.All.Expanse 2.2"],
+["e","f010340e-534a-f111-bec6-002248b0b66e","Status Boards.Web ED New Condensed Tracker.ED.All.Expanse 2.2"],
+["e","5decbfaf-f93f-f111-88b4-002248b0bb34","MAR.View PRN Administrations.ED.All.Expanse 2.2"],
+["e","4c29a73a-4e4a-f111-bec7-002248b0bb34","Documentation.Formatted Data - On Hold Medications.ED.All.Expanse 2.2"],
+["e","13754ce2-524a-f111-bec6-6045bd5dbf90","Documentation.Web ED Call Back Routine.ED.All.Expanse 2.2"],
+["e","7ba40c4d-514a-f111-bec7-70a8a50a603d","Orders.ED ONCE and PRN Convenience Set.ED.All.Expanse 2.2"],
+["e","d5ae858d-514a-f111-bec7-70a8a50a603d","Orders.New IV Medication Convenience Set: IV Bolus and IV Fluids.ED.All.Expanse 2.2"],
+["e","c73622d7-725c-f111-a826-7c1e525412d4","Orders.How to Edit Preselected Order Strings.ED.All.Expanse 2.2"],
+["e","fac1c363-e7cb-f111-a05c-7ced8d64f352","Flowsheets.Flowsheets Enhancement.ED.All.Expanse 2.2"],
+["e","f78b0b64-c53c-f111-88b3-7ced8da4b75d","Status Boards.Web ED Status Board.ED.All.Expanse 2.2"],
+["e","ead59ee6-514a-f111-bec6-7ced8da4b75d","Orders.Order Management Optimization.ED.All.Expanse 2.2"],
+["e","415f8c3b-524a-f111-bec6-7ced8da4b75d","Orders.Personalized Sets - Allow Suppress Orders.ED.All.Expanse 2.2"],
+["d","2229152a-1be5-f111-84e8-7ced8d64f352","Documentation.Dragon Medical One.Dragon.All"],
+["d","270ad704-5be4-f111-84e8-7ced8d64f352","Documentation.PowerMic Mobile.Dragon.All"]
+];
+
+const MOD = {a:"Web Acute",e:"Web ED",d:"Dragon Medical One",g:"General"};
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const vlabel = v => v==="gen" ? "General" : "Expanse " + v + (v===CURRENT ? " · current" : "");
+const vclass = v => v==="2.1" ? "b21" : v==="2.2" ? "b22" : "bgen";
+const badge = v => `<span class="badge ${vclass(v)}">${vlabel(v)}</span>`;
+
+/* parse Care4 titles: "Category.Title.Module.All.Expanse 2.2" */
+const tips = TIPS.map(([m,aid,raw]) => {
+  const v = /2\.2/.test(raw) ? "2.2" : "gen";
+  const parts = raw.replace(/\.?\s*Expanse\s?2\.2\.?/i,"").split(".").map(s=>s.trim()).filter(Boolean);
+  const cat = parts.shift();
+  while (parts.length > 1 && /^(acute|ed|all|dragon)$/i.test(parts[parts.length-1])) parts.pop();
+  return {m, aid, v, cat, title: parts.join(" · ")};
+});
+
+/* storage (per browser, optional) */
+let seen = new Set();
+try { seen = new Set(JSON.parse(localStorage.getItem("smh-seen") || "[]")); } catch(e) {}
+const save = () => { try { localStorage.setItem("smh-seen", JSON.stringify([...seen])); } catch(e) {} };
+
+const card = ([id,t,v,mods,,dur], ctx) => `
+<article class="vcard${seen.has(id)?" watched":""}" data-v="${v}" data-id="${id}">
+  <button class="thumb" data-play="${id}" data-title="${esc(t)}" aria-label="Play video: ${esc(t)}">
+    <span class="vline v${v.replace(".","")}"></span>
+    <img loading="lazy" src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" onerror="this.style.display='none'">
+    <span class="play" aria-hidden="true"></span>${dur?`<span class="dur">${dur}</span>`:""}
+  </button>
+  <div class="vbody">
+    <div class="tags">${badge(v)}<span class="mod">${[...mods].map(k=>MOD[k]).join(" · ")}</span></div>
+    <h4>${esc(t)}</h4>
+    <label class="seen"><input type="checkbox" data-seen="${id}"${seen.has(id)?" checked":""}> Watched</label>
+  </div>
+</article>`;
+
+const tipRow = t => `<a class="tip" data-v="${t.v}" data-m="${t.m}" href="${CARE4}${t.aid}" target="_blank" rel="noopener">
+  <span class="tt">${esc(t.title)}</span>
+  <span class="tm">${badge(t.v)}<span class="mod">${MOD[t.m]} · ${esc(t.cat)}</span></span>
+  <span class="ext">Open ↗</span></a>`;
+
+const group = (title, list, note) => list.length ? `<div class="vgroup"><h3 class="g">${title} <span class="count">${list.length} video${list.length>1?"s":""}</span></h3>${note?`<p class="sdesc" style="margin-top:-6px">${note}</p>`:""}<div class="grid">${list.map(card).join("")}</div></div>` : "";
+
+const by = (mod, grp) => VIDEOS.filter(x => x[3].includes(mod) && x[4]===grp);
+document.getElementById("acute-videos").innerHTML =
+  group(`Core workflows ${badge("2.1")}`, by("a","core"), "Care4's end-to-end Web Acute workflows for our current version.") +
+  group(`New in 2.2 ${badge("2.2")}`, by("a","feat")) +
+  group("More how-to videos", by("a","how"));
+document.getElementById("ed-videos").innerHTML =
+  group(`Core workflows ${badge("2.1")}`, by("e","core"), "Care4's end-to-end Web ED workflows for our current version.") +
+  group(`New in 2.2 ${badge("2.2")}`, by("e","feat")) +
+  group("More how-to videos", by("e","how"));
+document.getElementById("dragon-videos").innerHTML = `<div class="grid">${VIDEOS.filter(x=>x[3]==="d").map(card).join("")}</div>`;
+document.getElementById("general-videos").innerHTML = `<div class="grid">${VIDEOS.filter(x=>x[3]==="g").map(card).join("")}</div>`;
+document.getElementById("dragon-tips").innerHTML = tips.filter(t=>t.m==="d").map(tipRow).join("");
+const v22 = VIDEOS.filter(x=>x[2]==="2.2");
+document.getElementById("videos22").innerHTML = v22.map(card).join("");
+document.getElementById("cv22").textContent = v22.length + " videos";
+const t22 = tips.filter(t=>t.v==="2.2").sort((a,b)=>a.title.localeCompare(b.title));
+document.getElementById("tips22").innerHTML = t22.map(tipRow).join("");
+document.getElementById("c22").textContent = t22.length + " guides";
+if (UPGRADE_DATE) document.getElementById("upg").textContent = UPGRADE_DATE;
+
+/* tip library */
+const q = document.getElementById("q"), fm = document.getElementById("fm"), fc = document.getElementById("fc");
+[...new Set(tips.map(t=>t.cat))].sort().forEach(c => fc.insertAdjacentHTML("beforeend", `<option>${esc(c)}</option>`));
+let ver = "all";
+const okVer = v => ver==="all" || v==="gen" || v===ver;
+function renderTips(){
+  const s = q.value.trim().toLowerCase();
+  const list = tips.filter(t => okVer(t.v) && (!fm.value || t.m===fm.value) && (!fc.value || t.cat===fc.value) &&
+    (!s || (t.title+" "+t.cat+" "+MOD[t.m]).toLowerCase().includes(s)))
+    .sort((a,b)=> a.m.localeCompare(b.m) || a.cat.localeCompare(b.cat) || a.title.localeCompare(b.title));
+  document.getElementById("tiplist").innerHTML = list.length ? list.map(tipRow).join("") : `<div class="empty">No tip sheets match. Try a different word, or clear the filters.</div>`;
+  document.getElementById("tcount").textContent = `Showing ${list.length} of ${tips.length} tip sheets` + (ver!=="all" ? ` (Expanse ${ver} and General)` : "");
+}
+[q,fm,fc].forEach(el => el.addEventListener("input", renderTips));
+document.querySelectorAll("[data-tipjump]").forEach(b => b.addEventListener("click", () => {
+  fm.value = b.dataset.tipjump; fc.value = ""; q.value = ""; renderTips();
+  document.getElementById("tipsheets").scrollIntoView();
+}));
+
+/* version switch */
+function applyVer(){
+  document.querySelectorAll(".vswitch button").forEach(b => b.setAttribute("aria-pressed", b.dataset.ver===ver));
+  document.querySelectorAll(".vcard, #tips22 .tip, #dragon-tips .tip").forEach(el => el.hidden = !okVer(el.dataset.v));
+  document.querySelectorAll(".vgroup").forEach(g => g.hidden = !g.querySelector(".vcard:not([hidden])"));
+  const wn = document.getElementById("whats-new"); wn.style.opacity = ver==="2.1" ? ".55" : "";
+  renderTips(); renderSteps();
+}
+document.querySelectorAll(".vswitch button").forEach(b => b.addEventListener("click", () => { ver = b.dataset.ver; try{localStorage.setItem("smh-ver",ver)}catch(e){} applyVer(); }));
+try { const sv = localStorage.getItem("smh-ver"); if (sv) ver = sv; } catch(e) {}
+
+/* onboarding path */
+let role = "both";
+try { role = localStorage.getItem("smh-role") || "both"; } catch(e) {}
+const STEPS = [
+  {k:"dragon", t:"Set up Dragon Medical One", d:"Microphone, vocabulary and dictation basics", ids:VIDEOS.filter(x=>x[3]==="d").map(x=>x[0]), href:"#dragon", roles:"both acute ed"},
+  {k:"acute", t:"Learn Web Acute core workflows", d:"Admission to discharge on the wards (2.1)", ids:by("a","core").map(x=>x[0]), href:"#acute", roles:"both acute"},
+  {k:"ed", t:"Learn Web ED core workflows", d:"Discharge home, admit and sign-out (2.1)", ids:by("e","core").map(x=>x[0]), href:"#ed", roles:"both ed"},
+  {k:"v22", t:"Get ready for Expanse 2.2", d:"Preview the upgrade before go-live", ids:v22.filter(x=>role==="both"||x[3].includes(role[0])).map(x=>x[0]), href:"#whats-new", roles:"both acute ed"}
+];
+function renderSteps(){
+  document.querySelectorAll(".roles .chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.role===role));
+  STEPS[3].ids = v22.filter(x=>role==="both"||x[3].includes(role==="acute"?"a":"e")).map(x=>x[0]);
+  let n = 0;
+  document.getElementById("steps").innerHTML = STEPS.map(s => {
+    const show = s.roles.split(" ").includes(role);
+    if (show) n++;
+    const done = s.ids.filter(i=>seen.has(i)).length, pct = s.ids.length ? Math.round(done/s.ids.length*100) : 0;
+    return `<li class="step${pct===100?" done":""}"${show?"":" hidden"}>
+      <span class="num" aria-hidden="true">${pct===100?"✓":show?n:""}</span>
+      <div><b>${s.t}</b><small>${s.d} · ${done} of ${s.ids.length} watched</small>
+      <div class="meter" role="progressbar" aria-label="${s.t} progress" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pct}%"></i></div></div>
+      <a class="go" href="${s.href}">${pct===100?"Review":done?"Continue":"Start"} →</a></li>`;
+  }).join("");
+}
+document.querySelectorAll(".roles .chip").forEach(c => c.addEventListener("click", () => { role = c.dataset.role; try{localStorage.setItem("smh-role",role)}catch(e){} renderSteps(); }));
+
+/* watched toggles (same video can appear in several sections) */
+document.addEventListener("change", e => {
+  const id = e.target.dataset && e.target.dataset.seen; if (!id) return;
+  e.target.checked ? seen.add(id) : seen.delete(id); save();
+  document.querySelectorAll(`[data-seen="${id}"]`).forEach(cb => { cb.checked = seen.has(id); cb.closest(".vcard").classList.toggle("watched", seen.has(id)); });
+  renderSteps();
+});
+
+/* player */
+const dlg = document.getElementById("player"), frame = document.getElementById("pframe");
+function openVideo(id, title){
+  frame.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1" title="${esc(title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+  document.getElementById("ptitle").textContent = title;
+  document.getElementById("plink").href = "https://www.youtube.com/watch?v=" + id;
+  if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open","");
+}
+function closeVideo(){ frame.innerHTML = ""; if (dlg.close) dlg.close(); else dlg.removeAttribute("open"); }
+document.addEventListener("click", e => { const b = e.target.closest("[data-play]"); if (b) openVideo(b.dataset.play, b.dataset.title); });
+document.getElementById("pclose").addEventListener("click", closeVideo);
+dlg.addEventListener("click", e => { if (e.target === dlg) closeVideo(); });
+dlg.addEventListener("close", () => { frame.innerHTML = ""; });
+
+/* highlight current section in nav */
+const links = [...document.querySelectorAll("nav.sec a")];
+const spy = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) links.forEach(a => a.classList.toggle("on", a.getAttribute("href")==="#"+en.target.id)); }), {rootMargin:"-45% 0px -50% 0px"});
+document.querySelectorAll("main section[id]").forEach(s => spy.observe(s));
+
+applyVer();
+}
+</script>
+</body>
+</html>
