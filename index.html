@@ -167,11 +167,25 @@ dialog::backdrop{background:rgba(5,15,20,.82)}
 .x{appearance:none;border:0;background:rgba(255,255,255,.12);color:#fff;width:44px;height:44px;border-radius:10px;font-size:22px;cursor:pointer;flex:none}
 .frame{aspect-ratio:16/9;background:#000}.frame iframe{width:100%;height:100%;border:0;display:block}
 
+.src{font-size:12.5px;color:var(--mute)}
+.note{background:var(--bg);border:1px solid var(--line);border-left:5px solid var(--sky);border-radius:10px;padding:14px 16px;margin:0 0 22px;font-size:15px;max-width:80ch}
+.setup{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px;align-items:start;margin-bottom:8px}
+.box{background:var(--bg);border:1px solid var(--line);border-top:5px solid var(--blue);border-radius:var(--radius);padding:18px 22px}
+.box h3{margin:0 0 10px;font-size:18px;font-weight:800;color:var(--slate)}
+.box ol{margin:0;padding-left:22px}.box li{margin:0 0 8px}
+.rsteps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.rstep{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.rstep figure{margin:0;background:#fff;border-bottom:1px solid var(--line);height:240px;display:flex;align-items:flex-start;justify-content:center;overflow:hidden}
+.rstep img{max-width:100%;max-height:240px;object-fit:contain;object-position:top;display:block}
+.rstep div{padding:14px 16px}
+.rstep b{display:flex;gap:10px;align-items:center;font-family:var(--head);font-size:16px;color:var(--slate);margin-bottom:6px}
+.rstep b span{flex:none;width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:14px}
+.rstep p{margin:0;font-size:15px}
 footer.site{background:#006893;color:#e2f3fa;padding:36px 0;font-size:14px}
 footer.site a{color:#fff}
 footer.site .wrap{display:grid;gap:10px}
 
-@media (max-width:900px){.hero .wrap,.whatsnew{grid-template-columns:minmax(0,1fr)}.tools{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.tools .q{grid-column:1/-1}}
+@media (max-width:900px){.hero .wrap,.whatsnew,.setup{grid-template-columns:minmax(0,1fr)}.rsteps{grid-template-columns:minmax(0,1fr)}.tools{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.tools .q{grid-column:1/-1}}
 @media (max-width:600px){.mark .sub{display:none}.mark b{font-size:14px}.logo{height:40px}.wm .w1{font-size:18px}.wm .w2{font-size:8.5px}.bar{gap:10px}.vswitch{width:100%}.vswitch button{flex:1;padding:0 6px;font-size:13px}
 .step{grid-template-columns:36px minmax(0,1fr);padding:12px 16px}.num{width:34px;height:34px}.go{grid-column:2;padding:2px 0 0}
 .legend .badge{min-width:0}.tools{grid-template-columns:minmax(0,1fr)}html{scroll-padding-top:200px}}
@@ -196,9 +210,11 @@ footer.site .wrap{display:grid;gap:10px}
   </div>
   <nav class="sec" aria-label="Sections"><div class="wrap"><ul>
     <li><a href="#start">Start here</a></li>
+    <li><a href="#basics">Expanse basics</a></li>
     <li><a href="#acute">Web Acute</a></li>
     <li><a href="#ed">Web ED</a></li>
     <li><a href="#dragon">Dragon Medical One</a></li>
+    <li><a href="#remote">Working from home</a></li>
     <li><a href="#general">General education</a></li>
     <li><a href="#whats-new">What's new in 2.2</a></li>
     <li><a href="#tipsheets">Tip sheet library</a></li>
@@ -216,7 +232,7 @@ footer.site .wrap{display:grid;gap:10px}
     <div>
       <p class="kicker">Medical staff onboarding</p>
       <h1>Welcome to MEDITECH Expanse at Stevenson Memorial</h1>
-      <p class="lede">Everything a new physician needs to get comfortable in our electronic health record: short workflow videos, printable tip sheets and Dragon dictation setup. Follow the four-step onboarding path, or jump straight to the area you work in.</p>
+      <p class="lede">Everything a new physician needs to get comfortable in our electronic health record: short workflow videos, printable tip sheets and Dragon dictation setup. Follow the step-by-step onboarding path, or jump straight to the area you work in.</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap">
         <a class="btn solid" href="#acute">Start with Web Acute</a>
         <a class="btn" href="#tipsheets">Find a tip sheet</a>
@@ -224,7 +240,7 @@ footer.site .wrap{display:grid;gap:10px}
       <div class="legend" aria-label="Version labels">
         <div><span class="badge b21">Expanse 2.1</span><span>Our current version. Everything you need for your shifts now.</span></div>
         <div><span class="badge b22">Expanse 2.2</span><span>The upcoming upgrade. New screens and features to preview before go-live.</span></div>
-        <div><span class="badge bgen">General</span><span>Care4 hasn't tied it to a release. It applies to everyday use.</span></div>
+        <div><span class="badge bgen">General</span><span>Not tied to a release. It applies to everyday use. Videos from other hospitals say where they come from.</span></div>
       </div>
     </div>
     <div class="path" aria-labelledby="pathTitle">
@@ -239,6 +255,15 @@ footer.site .wrap{display:grid;gap:10px}
       <ol class="steps" id="steps"></ol>
       <footer>Tick “Watched” on each video to track progress. Progress is saved in this browser only.</footer>
     </div>
+  </div>
+</section>
+
+<section class="band" id="basics">
+  <div class="wrap">
+    <div class="shead"><h2 class="t">Expanse basics</h2><button class="btn" data-tipjump="a">Documentation tip sheets →</button></div>
+    <p class="sdesc">The fundamentals of Expanse as an EMR: finding your way around the chart, writing notes, pulling labs, vitals and other data into your documentation, using the problem list and setting up templates.</p>
+    <p class="note">Most of these videos were made by physicians at other hospitals that use MEDITECH Expanse, and each one says where it comes from. The core skills are the same, but some screens, templates and order sets will look slightly different at SMH. Our own note templates are the <b>SMH Admission History, Clinical Consult, Progress Note and Discharge Summary</b> pDocs.</p>
+    <div id="basics-videos"></div>
   </div>
 </section>
 
@@ -265,6 +290,35 @@ footer.site .wrap{display:grid;gap:10px}
     <div id="dragon-videos"></div>
     <h3 class="g">Dragon tip sheets</h3>
     <div class="tips" id="dragon-tips"></div>
+  </div>
+</section>
+
+<section class="band" id="remote">
+  <div class="wrap">
+    <div class="shead"><h2 class="t">Working from home</h2><a class="btn" href="https://smhehr.shinepartners.ca/mas" target="_blank" rel="noopener">Open Expanse remote sign-in ↗</a></div>
+    <p class="sdesc">You can use Expanse from home in a web browser. You'll need Microsoft Authenticator on your phone, which takes about five minutes to set up once.</p>
+    <div class="setup">
+      <div class="box">
+        <h3>One-time setup: Microsoft Authenticator</h3>
+        <ol>
+          <li>Install <b>Microsoft Authenticator</b> on your phone from the App Store or Google Play.</li>
+          <li>On a computer, go to <a href="https://aka.ms/mfasetup" target="_blank" rel="noopener">aka.ms/mfasetup</a> and sign in with your Stevenson network/email ID and password.</li>
+          <li>Choose <b>Receive notifications for verification</b>, then <b>Set up</b>.</li>
+          <li>In the app, tap <b>Add account → Work or school account</b> and scan the QR code shown on your computer screen.</li>
+          <li>Approve the test sign-in on your phone and click <b>Done</b>.</li>
+        </ol>
+      </div>
+      <div class="grid" id="remote-videos" style="grid-template-columns:minmax(0,1fr)"></div>
+    </div>
+    <h3 class="g">Signing in from home</h3>
+    <ol class="rsteps">
+      <li class="rstep"><figure><img src="img/remote-1.webp" alt="Stevenson Memorial Hospital sign-in page asking for username and password" loading="lazy"></figure>
+        <div><b><span>1</span>Sign in</b><p>Go to <a href="https://smhehr.shinepartners.ca/mas" target="_blank" rel="noopener">smhehr.shinepartners.ca/mas</a> and sign in with your SMH username and password.</p></div></li>
+      <li class="rstep"><figure><img src="img/remote-2.webp" alt="Verification screen showing a two-digit number to tap in Microsoft Authenticator" loading="lazy"></figure>
+        <div><b><span>2</span>Match the number</b><p>A two-digit number appears. Open Authenticator on your phone and tap the same number. (Older instructions say "Approve"; you now match the number.)</p></div></li>
+      <li class="rstep"><figure><img src="img/remote-3.webp" alt="MEDITECH Expanse home screen with the toolbar and status board" loading="lazy"></figure>
+        <div><b><span>3</span>You're in Expanse</b><p>Expanse opens in your browser on your status board. When you're finished, click <b>Close</b> at the top right to sign out, especially on a shared computer.</p></div></li>
+    </ol>
   </div>
 </section>
 
@@ -335,7 +389,8 @@ const UPGRADE_DATE = "";          // e.g. "March 2, 2027"
 const CURRENT = "2.1";
 const CARE4 = "https://www.care-4.ca/viewdocument/?aid=";
 
-/* [id, title, version, modules (a=Web Acute, e=Web ED, d=Dragon, g=General), group (core|feat|how), duration] */
+/* [id, title, version, modules (a=Web Acute, e=Web ED, d=Dragon, g=General, b=Expanse basics, r=Working from home), group, duration, source (blank = Care4)] */
+const CC = "CMIO Corner, an Ontario Expanse hospital", GO = "Goshen Health (US)", YK = "Yukon Hospitals";
 const VIDEOS = [
  ["0rVzO4UNerI","Ongoing care for an admitted patient","2.1","a","core","8:56"],
  ["2rKnIdpOr_4","Discharging an admitted patient","2.1","a","core","25:26"],
@@ -360,12 +415,36 @@ const VIDEOS = [
  ["Y2rUXS6mnak","Managing document contributors","2.2","ae","feat",""],
  ["43_CTMsnr7c","MAR: viewing PRN administrations","2.2","ae","feat",""],
  ["rO7ITEc9qQ0","Widget preferences","2.2","ae","feat",""],
+ ["ejBJYFn2fK8","Expanse 2.2 provider enhancements: full overview","2.2","ae","feat","25:53",CC],
  ["JFHYFvXyzsU","Discharge medication reconciliation, finalization and prescriptions","gen","a","how",""],
  ["ZXmma3NwiFc","How to view intake and output documentation","gen","ae","how",""],
  ["VO0ODLXAEl4","How to launch Chart Viewer","gen","ae","how",""],
  ["ixlRbI0xQ9s","Dragon Medical One: manage vocabulary","gen","d","how",""],
  ["UisxvreHzK0","IPeople: navigation and key features","gen","g","how",""],
- ["fU5O4-QBR5E","Expanse IMS: entering safety incidents","gen","g","how",""]
+ ["fU5O4-QBR5E","Expanse IMS: entering safety incidents","gen","g","how",""],
+ ["p_zB8Ec3VBw","Basic chart walkthrough","gen","b","nav","5:09",CC],
+ ["MEvoISSsVy8","Patient lists and finding patients","gen","b","nav","4:10",CC],
+ ["mpa_uY9HqSw","Web Acute walkthrough","gen","b","nav","11:48",CC],
+ ["FGycme-_DXQ","Web ED basic walkthrough","gen","b","nav","15:05",CC],
+ ["zh_7WKSxqk4","Using the Chart Viewer","gen","b","nav","5:31",CC],
+ ["7rjdUGtZQKU","Accessing historical data","gen","b","nav","3:27",CC],
+ ["_bEKbd4LeHA","Expanse overview for new users (medical student training)","gen","b","nav","28:46",YK],
+ ["BB651JF07GM","Pulling labs, vitals and other data into notes (formatted data)","gen","b","doc","2:19",CC],
+ ["Yc_0JYqSd0s","Documentation and using the problem list","gen","b","doc","8:50",CC],
+ ["iwy3SHXEQkI","Problem list demonstration","gen","b","doc","10:51",CC],
+ ["hRsImSS6DQ4","Creating note templates (Typicals)","gen","b","doc","5:36",GO],
+ ["jA7PEBExk1c","Provider documentation","gen","b","doc","16:24",GO],
+ ["J8VVx2AWmio","ED documentation: a simple note","gen","b","doc","4:03",CC],
+ ["EbRVmArFRso","ED documentation walkthrough (in depth)","gen","b","doc","17:40",CC],
+ ["z4KhuHnoeUw","Workload and e-sign off list","gen","b","doc","6:12",CC],
+ ["Xoyfqw41nLE","Health record deficiencies","gen","b","doc","3:26",CC],
+ ["TS_fUn_yfPI","Order entry demonstration","gen","b","order","8:13",CC],
+ ["diG_iyTge2M","Using Favourites in order entry","gen","b","order","3:01",CC],
+ ["GLtJv4sKmvk","Ordering tips and tricks","gen","b","order","12:45",CC],
+ ["l0N3C8xyeSc","Order set personalization","gen","b","order","15:28",CC],
+ ["IcP2dm3anww","Optimization session: electronic documentation","gen","b","deep","59:57",CC],
+ ["W6NPLuNdqB8","Optimization session: EMR efficiency tools and order entry","gen","b","deep","1:03:21",CC],
+ ["qwvivc3hhGo","How to set up Microsoft Authenticator for a work account","gen","r","how","2:00","a general YouTube tutorial, not SMH"]
 ];
 
 /* Tip sheets from Care4: [module, Care4 document id, Care4 title] */
@@ -494,7 +573,7 @@ const TIPS = [
 ["d","270ad704-5be4-f111-84e8-7ced8d64f352","Documentation.PowerMic Mobile.Dragon.All"]
 ];
 
-const MOD = {a:"Web Acute",e:"Web ED",d:"Dragon Medical One",g:"General"};
+const MOD = {a:"Web Acute",e:"Web ED",d:"Dragon Medical One",g:"General",b:"Expanse basics",r:"Working from home"};
 const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const vlabel = v => v==="gen" ? "General" : "Expanse " + v + (v===CURRENT ? " · current" : "");
 const vclass = v => v==="2.1" ? "b21" : v==="2.2" ? "b22" : "bgen";
@@ -514,7 +593,7 @@ let seen = new Set();
 try { seen = new Set(JSON.parse(localStorage.getItem("smh-seen") || "[]")); } catch(e) {}
 const save = () => { try { localStorage.setItem("smh-seen", JSON.stringify([...seen])); } catch(e) {} };
 
-const card = ([id,t,v,mods,,dur], ctx) => `
+const card = ([id,t,v,mods,,dur,src], ctx) => `
 <article class="vcard${seen.has(id)?" watched":""}" data-v="${v}" data-id="${id}">
   <button class="thumb" data-play="${id}" data-title="${esc(t)}" aria-label="Play video: ${esc(t)}">
     <span class="vline v${v.replace(".","")}"></span>
@@ -523,7 +602,7 @@ const card = ([id,t,v,mods,,dur], ctx) => `
   </button>
   <div class="vbody">
     <div class="tags">${badge(v)}<span class="mod">${[...mods].map(k=>MOD[k]).join(" · ")}</span></div>
-    <h4>${esc(t)}</h4>
+    <h4>${esc(t)}</h4>${src?`<span class="src">From ${esc(src)}</span>`:""}
     <label class="seen"><input type="checkbox" data-seen="${id}"${seen.has(id)?" checked":""}> Watched</label>
   </div>
 </article>`;
@@ -544,6 +623,12 @@ document.getElementById("ed-videos").innerHTML =
   group(`Core workflows ${badge("2.1")}`, by("e","core"), "Care4's end-to-end Web ED workflows for our current version.") +
   group(`New in 2.2 ${badge("2.2")}`, by("e","feat")) +
   group("More how-to videos", by("e","how"));
+document.getElementById("basics-videos").innerHTML =
+  group("Finding your way around", by("b","nav")) +
+  group("Writing notes and pulling in data", by("b","doc"), "How to document, insert labs and vitals with formatted data, use the problem list, and build templates (Typicals).") +
+  group("Ordering and personalization", by("b","order")) +
+  group("Deep-dive sessions (about an hour each)", by("b","deep"));
+document.getElementById("remote-videos").innerHTML = VIDEOS.filter(x=>x[3]==="r").map(card).join("");
 document.getElementById("dragon-videos").innerHTML = `<div class="grid">${VIDEOS.filter(x=>x[3]==="d").map(card).join("")}</div>`;
 document.getElementById("general-videos").innerHTML = `<div class="grid">${VIDEOS.filter(x=>x[3]==="g").map(card).join("")}</div>`;
 document.getElementById("dragon-tips").innerHTML = tips.filter(t=>t.m==="d").map(tipRow).join("");
@@ -589,6 +674,8 @@ try { const sv = localStorage.getItem("smh-ver"); if (sv) ver = sv; } catch(e) {
 let role = "both";
 try { role = localStorage.getItem("smh-role") || "both"; } catch(e) {}
 const STEPS = [
+  {k:"remote", t:"Set up access from home", d:"Microsoft Authenticator and remote sign-in", ids:VIDEOS.filter(x=>x[3]==="r").map(x=>x[0]), href:"#remote", roles:"both acute ed"},
+  {k:"basics", t:"Learn Expanse basics", d:"The chart, notes, formatted data and the problem list", ids:["p_zB8Ec3VBw","MEvoISSsVy8","BB651JF07GM","Yc_0JYqSd0s"], href:"#basics", roles:"both acute ed"},
   {k:"dragon", t:"Set up Dragon Medical One", d:"Microphone, vocabulary and dictation basics", ids:VIDEOS.filter(x=>x[3]==="d").map(x=>x[0]), href:"#dragon", roles:"both acute ed"},
   {k:"acute", t:"Learn Web Acute core workflows", d:"Admission to discharge on the wards (2.1)", ids:by("a","core").map(x=>x[0]), href:"#acute", roles:"both acute"},
   {k:"ed", t:"Learn Web ED core workflows", d:"Discharge home, admit and sign-out (2.1)", ids:by("e","core").map(x=>x[0]), href:"#ed", roles:"both ed"},
@@ -596,7 +683,7 @@ const STEPS = [
 ];
 function renderSteps(){
   document.querySelectorAll(".roles .chip").forEach(c => c.setAttribute("aria-pressed", c.dataset.role===role));
-  STEPS[3].ids = v22.filter(x=>role==="both"||x[3].includes(role==="acute"?"a":"e")).map(x=>x[0]);
+  STEPS.find(s=>s.k==="v22").ids = v22.filter(x=>role==="both"||x[3].includes(role==="acute"?"a":"e")).map(x=>x[0]);
   let n = 0;
   document.getElementById("steps").innerHTML = STEPS.map(s => {
     const show = s.roles.split(" ").includes(role);
