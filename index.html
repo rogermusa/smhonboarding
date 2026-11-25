@@ -57,10 +57,18 @@ header.top{position:sticky;top:0;z-index:20;background:light-dark(rgba(245,251,2
 .vswitch button{appearance:none;border:0;background:transparent;color:var(--slate);font-weight:700;font-size:14px;line-height:1;padding:0 14px;min-height:38px;border-radius:8px;cursor:pointer;white-space:nowrap}
 .vswitch button[aria-pressed=true]{background:#3c5e6b;color:#fff}
 nav.sec{background:transparent;border-top:1px solid var(--line)}
-nav.sec ul{list-style:none;margin:0;padding:0;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
-nav.sec ul::-webkit-scrollbar{display:none}
+nav.sec ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:0 2px}
 nav.sec li{flex:none}
-nav.sec a{display:block;color:var(--slate);text-decoration:none;font-size:14.5px;font-weight:700;padding:11px 12px;white-space:nowrap;border-bottom:3px solid transparent}
+nav.sec a{display:block;color:var(--slate);text-decoration:none;font-size:14.5px;font-weight:700;padding:11px 11px;white-space:nowrap;border-bottom:3px solid transparent}
+.navbtn{display:none;appearance:none;width:100%;border:0;background:transparent;color:var(--slate);font:800 15px/1 var(--head);min-height:46px;padding:0;text-align:left;cursor:pointer;align-items:center;justify-content:space-between}
+.navbtn i{font-style:normal;font-size:13px;color:var(--blue)}
+@media (max-width:960px){
+  .navbtn{display:flex}
+  nav.sec ul{display:none;flex-direction:column;padding:0 0 10px}
+  nav.sec.open ul{display:flex}
+  nav.sec a{padding:12px 4px;border-bottom:1px solid var(--line);border-left:0}
+  nav.sec a.on{border-color:var(--line);color:var(--blue)}
+}
 nav.sec a:hover,nav.sec a.on{color:var(--blue);border-color:var(--sky)}
 
 /* status */
@@ -151,10 +159,20 @@ input[type=search],select{width:100%;min-height:46px;font:16px inherit;color:var
 .empty{padding:24px;text-align:center;color:var(--mute);border:1px dashed var(--line);border-radius:10px}
 
 /* 2.2 */
-.whatsnew{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:28px;align-items:start}
+.whatsnew{display:block}
+.t22{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px;background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);padding:6px 20px}
+.t22 li{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+.t22 li[hidden]{display:none}
+.t22 .tt{font-weight:600;font-size:15px;line-height:1.35}.t22 small{display:block;color:var(--mute);font-size:12.5px;font-weight:500}
+.t22 .lk{display:flex;gap:10px;flex:none;font-size:13px;font-weight:700;white-space:nowrap}.t22 .lk a{text-decoration:none}
+.more{margin-top:12px}
+.pv{display:flex;gap:16px 24px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--bg);border:1px solid var(--line);border-left:5px solid var(--v22);border-radius:var(--radius);padding:18px 22px}
+.pv p{margin:0;max-width:62ch}
+.pv[hidden],#wn-body[hidden],.more[hidden]{display:none}
+@media (max-width:760px){.t22{grid-template-columns:minmax(0,1fr)}}
 .enh{background:var(--bg);border:1px solid var(--line);border-top:5px solid var(--v22);border-radius:var(--radius);padding:20px 22px}
 .enh h3{margin:0 0 10px;font-size:18px}
-.enh ul{margin:0;padding-left:20px;columns:2 220px;column-gap:24px}
+.enh ul{margin:0;padding-left:20px;columns:3 230px;column-gap:28px}
 .enh li{margin:0 0 6px;break-inside:avoid;font-size:15px}
 
 /* modal */
@@ -186,9 +204,9 @@ footer.site a{color:#fff}
 footer.site .wrap{display:grid;gap:10px}
 
 @media (max-width:900px){.hero .wrap,.whatsnew,.setup{grid-template-columns:minmax(0,1fr)}.rsteps{grid-template-columns:minmax(0,1fr)}.tools{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.tools .q{grid-column:1/-1}}
-@media (max-width:600px){.mark .sub{display:none}.mark b{font-size:14px}.logo{height:40px}.wm .w1{font-size:18px}.wm .w2{font-size:8.5px}.bar{gap:10px}.vswitch{width:100%}.vswitch button{flex:1;padding:0 6px;font-size:13px}
+@media (max-width:600px){html{scroll-padding-top:170px}.mark .sub{display:none}.mark b{font-size:14px}.logo{height:40px}.wm .w1{font-size:18px}.wm .w2{font-size:8.5px}.bar{gap:10px}.vswitch{width:100%}.vswitch button{flex:1;padding:0 6px;font-size:13px}
 .step{grid-template-columns:36px minmax(0,1fr);padding:12px 16px}.num{width:34px;height:34px}.go{grid-column:2;padding:2px 0 0}
-.legend .badge{min-width:0}.tools{grid-template-columns:minmax(0,1fr)}html{scroll-padding-top:200px}}
+.legend .badge{min-width:0}.tools{grid-template-columns:minmax(0,1fr)}}
 </style>
 </head>
 <body>
@@ -208,16 +226,18 @@ footer.site .wrap{display:grid;gap:10px}
       <button data-ver="2.2" aria-pressed="false">2.2 · upcoming</button>
     </div>
   </div>
-  <nav class="sec" aria-label="Sections"><div class="wrap"><ul>
+  <nav class="sec" id="secnav" aria-label="Sections"><div class="wrap">
+    <button class="navbtn" id="navbtn" aria-expanded="false" aria-controls="navlist"><span id="navcur">Sections</span><i>Menu ▾</i></button>
+    <ul id="navlist">
     <li><a href="#start">Start here</a></li>
     <li><a href="#basics">Expanse basics</a></li>
     <li><a href="#acute">Web Acute</a></li>
     <li><a href="#ed">Web ED</a></li>
-    <li><a href="#dragon">Dragon Medical One</a></li>
-    <li><a href="#remote">Working from home</a></li>
-    <li><a href="#general">General education</a></li>
-    <li><a href="#whats-new">What's new in 2.2</a></li>
-    <li><a href="#tipsheets">Tip sheet library</a></li>
+    <li><a href="#dragon">Dragon</a></li>
+    <li><a href="#remote">Work from home</a></li>
+    <li><a href="#general">General</a></li>
+    <li><a href="#whats-new">New in 2.2</a></li>
+    <li><a href="#tipsheets">Tip sheets</a></li>
   </ul></div></nav>
 </header>
 
@@ -334,6 +354,8 @@ footer.site .wrap{display:grid;gap:10px}
   <div class="wrap">
     <div class="shead"><h2 class="t">What's new in Expanse 2.2</h2><a class="btn" href="https://www.care-4.ca/viewdocument/?aid=eb10f20a-6358-f111-a825-000d3ae84ae1" target="_blank" rel="noopener">Full Care4 2.2 communication ↗</a></div>
     <p class="sdesc">SMH is moving from 2.1 to 2.2. Most workflows stay the same; these are the enhancements physicians will notice. Everything in this section is marked <span class="badge b22">Expanse 2.2</span>.</p>
+    <div class="pv" id="wn-off" hidden><p><b>You're viewing 2.1 (current) content.</b> This section previews what changes when SMH moves to Expanse 2.2.</p><button class="btn solid" id="wn-show">Show the 2.2 changes</button></div>
+    <div id="wn-body">
     <div class="whatsnew">
       <div class="enh">
         <h3>2.2 enhancements at a glance</h3>
@@ -346,13 +368,13 @@ footer.site .wrap{display:grid;gap:10px}
           <li>EMR preference settings</li><li>Reports moving to the Diagnostics tab</li>
         </ul>
       </div>
-      <div>
-        <h3 class="g" style="margin-top:0">2.2 tip sheets <span class="count" id="c22"></span></h3>
-        <div class="tips" id="tips22"></div>
-      </div>
     </div>
+    <h3 class="g">2.2 tip sheets <span class="count" id="c22"></span></h3>
+    <ul class="t22" id="tips22"></ul>
+    <button class="btn more" id="more22" aria-expanded="false"></button>
     <h3 class="g">2.2 feature videos <span class="count" id="cv22"></span></h3>
     <div class="grid" id="videos22"></div>
+    </div>
   </div>
 </section>
 
@@ -635,9 +657,16 @@ document.getElementById("dragon-tips").innerHTML = tips.filter(t=>t.m==="d").map
 const v22 = VIDEOS.filter(x=>x[2]==="2.2");
 document.getElementById("videos22").innerHTML = v22.map(card).join("");
 document.getElementById("cv22").textContent = v22.length + " videos";
-const t22 = tips.filter(t=>t.v==="2.2").sort((a,b)=>a.title.localeCompare(b.title));
-document.getElementById("tips22").innerHTML = t22.map(tipRow).join("");
+const g22 = {};
+tips.filter(t=>t.v==="2.2").forEach(t => { const k=t.title.toLowerCase(); (g22[k] = g22[k] || {title:t.title, cat:t.cat, links:[]}).links.push(t); });
+const t22 = Object.values(g22).sort((a,b)=>a.title.localeCompare(b.title));
+const SHOW22 = 10;
+document.getElementById("tips22").innerHTML = t22.map((g,i) => `<li${i>=SHOW22?" hidden":""}><span><span class="tt">${esc(g.title)}</span><small>${esc(g.cat)}</small></span><span class="lk">${g.links.map(t=>`<a href="${CARE4}${t.aid}" target="_blank" rel="noopener">${MOD[t.m]} ↗</a>`).join("")}</span></li>`).join("");
 document.getElementById("c22").textContent = t22.length + " guides";
+const more22 = document.getElementById("more22");
+const setMore = open => { document.querySelectorAll("#tips22 li").forEach((li,i) => li.hidden = !open && i>=SHOW22); more22.textContent = open ? "Show fewer" : `Show all ${t22.length} tip sheets`; more22.setAttribute("aria-expanded", open); };
+setMore(false); more22.addEventListener("click", () => setMore(more22.getAttribute("aria-expanded")!=="true"));
+document.getElementById("wn-show").addEventListener("click", () => { ver = "2.2"; try{localStorage.setItem("smh-ver",ver)}catch(e){} applyVer(); });
 if (UPGRADE_DATE) document.getElementById("upg").textContent = UPGRADE_DATE;
 
 /* tip library */
@@ -662,9 +691,9 @@ document.querySelectorAll("[data-tipjump]").forEach(b => b.addEventListener("cli
 /* version switch */
 function applyVer(){
   document.querySelectorAll(".vswitch button").forEach(b => b.setAttribute("aria-pressed", b.dataset.ver===ver));
-  document.querySelectorAll(".vcard, #tips22 .tip, #dragon-tips .tip").forEach(el => el.hidden = !okVer(el.dataset.v));
+  document.querySelectorAll(".vcard:not(#videos22 .vcard), #dragon-tips .tip").forEach(el => el.hidden = !okVer(el.dataset.v));
   document.querySelectorAll(".vgroup").forEach(g => g.hidden = !g.querySelector(".vcard:not([hidden])"));
-  const wn = document.getElementById("whats-new"); wn.style.opacity = ver==="2.1" ? ".55" : "";
+  document.getElementById("wn-off").hidden = ver!=="2.1"; document.getElementById("wn-body").hidden = ver==="2.1";
   renderTips(); renderSteps();
 }
 document.querySelectorAll(".vswitch button").forEach(b => b.addEventListener("click", () => { ver = b.dataset.ver; try{localStorage.setItem("smh-ver",ver)}catch(e){} applyVer(); }));
@@ -720,9 +749,13 @@ document.getElementById("pclose").addEventListener("click", closeVideo);
 dlg.addEventListener("click", e => { if (e.target === dlg) closeVideo(); });
 dlg.addEventListener("close", () => { frame.innerHTML = ""; });
 
+/* section menu (phones/tablets) */
+const nav = document.getElementById("secnav"), navbtn = document.getElementById("navbtn");
+navbtn.addEventListener("click", () => { const o = !nav.classList.contains("open"); nav.classList.toggle("open", o); navbtn.setAttribute("aria-expanded", o); });
+document.querySelectorAll("#navlist a").forEach(a => a.addEventListener("click", () => { nav.classList.remove("open"); navbtn.setAttribute("aria-expanded", false); }));
 /* highlight current section in nav */
 const links = [...document.querySelectorAll("nav.sec a")];
-const spy = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) links.forEach(a => a.classList.toggle("on", a.getAttribute("href")==="#"+en.target.id)); }), {rootMargin:"-45% 0px -50% 0px"});
+const spy = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { links.forEach(a => a.classList.toggle("on", a.getAttribute("href")==="#"+en.target.id)); const cur = links.find(a=>a.classList.contains("on")); document.getElementById("navcur").textContent = cur ? cur.textContent : "Sections"; } }), {rootMargin:"-45% 0px -50% 0px"});
 document.querySelectorAll("main section[id]").forEach(s => spy.observe(s));
 
 applyVer();
